@@ -6,42 +6,15 @@ public class Burner {
 	}
 	
 	public enum Temperature {
-		BLAZING (3), HOT (2), WARM (1), COLD (0);
-		int value;
+		BLAZING ("VERY HOT! DON'T TOUCH"), HOT ("CAREFUL"), WARM ("warm"), COLD ("cooool");
+		private String value;
 		
-		Temperature(int setting) {
+		Temperature(String setting) {
 			value = setting;
 		}
 		
 		public String toString() {
-			return value + "";
-		}
-	}
-
-	public enum Setting {
-		OFF (0), LOW (1), MEDIUM (2), HIGH (3);
-		private int value;
-
-		Setting(int setting) {
-			value = setting;
-		}
-
-		public String toString() {
-			if(this.value == 0) {
-				return "---";
-			}
-			else if(this.value == 1) {
-				return "--+";
-			}
-			else if(this.value == 2) {
-				return "-++";
-			}
-			else if(this.value == 3) {
-				return "+++";
-			}
-			else {
-				return "Hi :)";
-			}
+			return value;
 		}
 	}
 	
@@ -59,15 +32,41 @@ public class Burner {
 	public final static int TIME_DURATION = 2;
 	
 	public void plusButton() {
-		if(mySetting != Setting.HIGH) {
-			mySetting.value++;
+		timer = TIME_DURATION;
+		switch (mySetting) {
+			case Setting.OFF:
+				mySetting = Setting.LOW;
+				break;
+			case Setting.LOW:
+				mySetting = Setting.MEDIUM;
+				break;
+			case Setting.MEDIUM:
+				mySetting = Setting.HIGH;
+				break;
 		}
 	}
 	
 	public void minusButton() {
-		if(mySetting != Setting.OFF) {
-			mySetting.value--;
+		timer = TIME_DURATION;
+		switch (mySetting) {
+			case Setting.LOW:
+				mySetting = Setting.OFF;
+				break;
+			case Setting.MEDIUM:
+				mySetting = Setting.LOW;
+				break;
+			case Setting.HIGH:
+				mySetting = Setting.MEDIUM;
+				break;
 		}
+	}
+	
+	public void updateTemperature() {
+		
+	}
+	
+	public void display() {
+		System.out.println("[" + mySetting + "]" + "....." + myTemperature);
 	}
 	
 }
